@@ -28,6 +28,8 @@ function create_config() {
     echo "brokerName=$BROKER_NAME" >> $BROKER_CONFIG_FILE
     echo "brokerId=$BROKER_ID" >> $BROKER_CONFIG_FILE
 
+    POD_NAME=$(hostname); POD_IP=$(getent hosts $POD_NAME | awk '{ print $1 }');
+
     echo "brokerIP1=${POD_IP}" >> $BROKER_CONFIG_FILE
     if [ $BROKER_ID != 0 ]; then
         sed -i 's/brokerRole=.*/brokerRole=SLAVE/g' $BROKER_CONFIG_FILE
